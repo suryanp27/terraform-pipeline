@@ -33,6 +33,6 @@ def getTerraformPath(){
     def tfHome = tool name: 'terraform-12', type: 'terraform'
     return tfHome
 }
-def createS3Bucket(){
+def createS3Bucket(bucketName){
     sh returnStatus: true, script: sh "aws s3 mb ${bucketName} --region=ap-south-1"
 }
