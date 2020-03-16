@@ -8,14 +8,14 @@ pipeline{
             steps{
               sh returnStatus: true, script: 'terrafrom workspace new dev'
               sh "terraform init"
-              sh "terrafrom apply -var-file"=dev.tfvars
+              sh "terrafrom apply -var-file=dev.tfvars -auto-approve"
           }
         }  
     stage('terraform init and apply Prod'){
             steps{
               sh returnStatus: true, script: 'terrafrom workspace new prod'
               sh "terraform init"
-              sh "terrafrom apply -var-file"=prod.tfvars
+              sh "terrafrom apply -var-file=prod.tfvars -auto-approve"
           }
         }  
     }   
