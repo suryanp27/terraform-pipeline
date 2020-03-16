@@ -4,6 +4,15 @@ pipeline{
       PATH = "${PATH}:${getTerraformPath()}"
 }
     stages{
+        stage('s3 - crate bucket'){
+          steps {
+              script {
+              creates3Bucket('terraform-jenkins-2020')
+              }
+          }
+        }
+           
+        }
         stage('terraform init and apply dev'){
             steps{
               sh returnStatus: true, script: 'terraform workspace new dev'
@@ -23,4 +32,7 @@ pipeline{
 def getTerraformPath(){
     def tfHome = tool name: 'terraform-12', type: 'terraform'
     return tfHome
+}
+def creates3Bucket(){
+    sh returnStatus: true, script: sh "aws s3 mb ${bucketName} --region=ap-south-1"
 }
