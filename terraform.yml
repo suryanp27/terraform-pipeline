@@ -3,14 +3,14 @@
   hosts: localhost
   tasks: 
     - 
-      backend_config: ~
+      backend_config: 
       bucket: "{{ s3_bucket }}"
       key: "{{ key }}"
       name: "Run the terraform scirpts"
       project_path: ./
       region: "{{ region }}"
       state: "{{ state }}"
-      terraform: ~
+      terraform: 
       variables_file: "{{ app_env }}.tfvars"
       workspace: "{{ app_env }}"
   vars: 
