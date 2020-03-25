@@ -1,21 +1,19 @@
---- 
-- 
-  hosts: localhost
-  tasks: 
-    - 
-      backend_config: 
-      bucket: "{{ bucket }}"
-      key: "{{ key }}"
-      name: "Run the terraform scirpts"
-      project_path: ./
-      region: "{{ region }}"
-      state: "{{ state }}"
-      terraform: 
-      variables_file: "{{ app_env }}.tfvars"
-      workspace: "{{ app_env }}"
-  vars: 
-    app_env: dev
+---
+- hosts: localhost
+  vars:
+    state: present
+    s3_bucket: terraform-jenkins-2020
     key: terraform.tfstate
     region: ap-south-1
-    bucket: terraform-jenkins-2020
-    state: present
+    app_env: dev
+  tasks:
+    - name: Run the terraform scirpts
+      terraform:
+        project_path: "./"
+        state: "{{ state }}"
+        backend_config:
+          region: "{{ region }}"
+          bucket: "{{ s3_bucket }}"
+          key: "{{ key }}"
+        variables_file: "{{ app_env }}.tfvars"
+        workspace: "{{ app_env }}"
